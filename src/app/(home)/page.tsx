@@ -1,3 +1,4 @@
+import BookingCard from '@/components/shared/booking-item';
 import Header from '@/components/shared/header';
 import Search from '@/components/shared/search';
 import { format } from 'date-fns';
@@ -18,8 +19,15 @@ export default function Home() {
         </p>
       </div>
 
-      <div className='px-5 mt-6'>
+      <div className="px-5 mt-6">
         <Search />
+      </div>
+
+      <div className="px-5 mt-6">
+        <h2 className="text-xs uppercase text-gray-400 font-bold mb-3">
+          Agendamentos
+        </h2>
+        <BookingCard />
       </div>
     </main>
   );
