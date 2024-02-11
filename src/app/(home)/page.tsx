@@ -1,4 +1,5 @@
 import Header from '@/components/shared/header';
+import Search from '@/components/shared/search';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -15,6 +16,10 @@ export default function Home() {
         <p className="text-sm">
           {currentDate.charAt(0).toUpperCase() + currentDate.slice(1)}
         </p>
+      </div>
+
+      <div className='px-5 mt-6'>
+        <Search />
       </div>
     </main>
   );
