@@ -34,7 +34,7 @@ export default function BarbershopItem({ barbershop }: BarbershopItemProps) {
           <p className="text-xs text-gray-400 overflow-hidden text-ellipsis text-nowrap">
             {barbershop.address}
           </p>
-          <Button className="w-full mt-3" variant="secondary">
+          <Button className="w-full mt-3 hover:bg-primary" variant="secondary">
             Reservar
           </Button>
         </div>
