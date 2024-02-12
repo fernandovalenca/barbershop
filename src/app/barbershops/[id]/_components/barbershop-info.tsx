@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -12,7 +12,7 @@ type BarbershopInfoProps = {
 
 export default function BarbershopInfo({ barbershop }: BarbershopInfoProps) {
   const router = useRouter();
-  const handleBackClick = () => router.back();
+  const handleBackClick = () => router.push("/");
   return (
     <div>
       <div className="relative">

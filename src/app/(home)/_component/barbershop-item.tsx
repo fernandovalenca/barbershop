@@ -1,15 +1,21 @@
+"use client"
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Barbershop from '@/core/domain/entities/barbershop';
 import { StarIcon } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 type BarbershopItemProps = {
   barbershop: Barbershop;
 };
 
 export default function BarbershopItem({ barbershop }: BarbershopItemProps) {
+  const router = useRouter();
+  const handleBarbershopClick = () => router.push(`/barbershops/${barbershop.id}`);
+
   return (
     <Card className="max-w-44 min-w-44 rounded-2xl">
       <CardContent className="p-0">
@@ -34,7 +40,7 @@ export default function BarbershopItem({ barbershop }: BarbershopItemProps) {
           <p className="text-xs text-gray-400 overflow-hidden text-ellipsis text-nowrap">
             {barbershop.address}
           </p>
-          <Button className="w-full mt-3 hover:bg-primary" variant="secondary">
+          <Button className="w-full mt-3 hover:bg-primary" variant="secondary" onClick={handleBarbershopClick}>
             Reservar
           </Button>
         </div>
