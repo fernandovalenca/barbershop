@@ -4,12 +4,23 @@ import Service from '@/core/domain/entities/service';
 import { Card, CardContent } from '../ui/card';
 import Image from 'next/image';
 import { Button } from '../ui/button';
+import { signIn } from 'next-auth/react';
 
 type ServiceItemProps = {
   service: Service;
+  isAuthenticated: boolean;
 };
 
-export default function ServiceItem({ service }: ServiceItemProps) {
+export default function ServiceItem({
+  service,
+  isAuthenticated,
+}: ServiceItemProps) {
+  const handleBookingClick = () => {
+    if (!isAuthenticated) {
+      signIn('google');
+    }
+  };
+
   return (
     <Card className="w-full min-h-[134px] max-h-[134px] hover:border hover:border-primary">
       <CardContent className="flex gap-3 p-3">
@@ -31,7 +42,11 @@ export default function ServiceItem({ service }: ServiceItemProps) {
                 style: 'currency',
               }).format(service.price)}
             </span>
-            <Button variant={'secondary'} className="hover:bg-primary">
+            <Button
+              onClick={handleBookingClick}
+              variant={'secondary'}
+              className="hover:bg-primary"
+            >
               Reservar
             </Button>
           </div>

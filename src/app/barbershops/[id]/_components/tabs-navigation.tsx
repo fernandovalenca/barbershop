@@ -4,26 +4,30 @@ import ServiceItem from '@/components/shared/service-item';
 import { Button } from '@/components/ui/button';
 import Service from '@/core/domain/entities/service';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
+import { stat } from 'fs';
 import { Smartphone } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 
 type TabsNavigationProps = {
   services: Service[];
   defaultValue: string;
 };
 
+const weekdays = [
+  { day: 'Segunda-Feira', hours: '08:00 - 21:00' },
+  { day: 'Terça-Feira', hours: '08:00 - 21:00' },
+  { day: 'Quarta-Feira', hours: '08:00 - 21:00' },
+  { day: 'Quinta-Feira', hours: '08:00 - 21:00' },
+  { day: 'Sexta-Feira', hours: '08:00 - 21:00' },
+  { day: 'Sábado', hours: '08:00 - 21:00' },
+  { day: 'Domingo', hours: 'Fechado' },
+];
+
 export default function TabsNavigation({
   services,
   defaultValue,
 }: TabsNavigationProps) {
-  const weekdays = [
-    { day: 'Segunda-Feira', hours: '08:00 - 21:00' },
-    { day: 'Terça-Feira', hours: '08:00 - 21:00' },
-    { day: 'Quarta-Feira', hours: '08:00 - 21:00' },
-    { day: 'Quinta-Feira', hours: '08:00 - 21:00' },
-    { day: 'Sexta-Feira', hours: '08:00 - 21:00' },
-    { day: 'Sábado', hours: '08:00 - 21:00' },
-    { day: 'Domingo', hours: 'Fechado' },
-  ];
+  const { status } = useSession();
 
   return (
     <Tabs defaultValue={defaultValue} className="flex flex-col pt-6 gap-6">
@@ -46,7 +50,11 @@ export default function TabsNavigation({
       <TabsContent value="services">
         <section className="flex flex-col gap-3 px-5">
           {services.map((service) => (
-            <ServiceItem key={service.id} service={service} />
+            <ServiceItem
+              key={service.id}
+              service={service}
+              isAuthenticated={status === 'authenticated'}
+            />
           ))}
         </section>
       </TabsContent>
