@@ -20,7 +20,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} dark  h-full flex flex-col justify-between`}
       >
-        {children}
+        <div>{children}</div>
         <Footer />
       </body>
     </html>
