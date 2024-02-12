@@ -65,14 +65,14 @@ export default function TabsNavigation({
               <Smartphone size={20} />
               <span className='text-sm'>(11) 9999-9999</span>
             </div>
-            <Button variant={'secondary'} className='hover:bg-primary'>Copiar</Button>
+            <Button size={"sm"} variant={'secondary'} className='hover:bg-primary'>Copiar</Button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Smartphone size={20} />
               <span className='text-sm'>(11) 9999-9999</span>
             </div>
-            <Button variant={'secondary'} className='hover:bg-primary'>Copiar</Button>
+            <Button size={"sm"} variant={'secondary'} className='hover:bg-primary'>Copiar</Button>
           </div>
         </div>
 
