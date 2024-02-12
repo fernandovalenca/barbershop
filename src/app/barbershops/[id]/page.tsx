@@ -1,7 +1,6 @@
 import { db } from '@/lib/prisma';
 import BarbershopInfo from './_components/barbershop-info';
 import TabsNavigation from './_components/tabs-navigation';
-import ServiceItem from '@/components/shared/service-item';
 
 type BarbershopDetailsPageProps = {
   params: {

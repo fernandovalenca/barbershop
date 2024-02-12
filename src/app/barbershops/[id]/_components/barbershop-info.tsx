@@ -1,36 +1,45 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import Barbershop from '@/core/domain/entities/barbershop';
 import { ChevronLeft, MapPinIcon, MenuIcon, StarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import SideMenu from '@/components/shared/side-menu';
+import Link from 'next/link';
 
 type BarbershopInfoProps = {
   barbershop: Barbershop;
 };
 
 export default function BarbershopInfo({ barbershop }: BarbershopInfoProps) {
-  const router = useRouter();
-  const handleBackClick = () => router.push("/");
   return (
     <div>
       <div className="relative">
         <Button
           variant={'outline'}
           size={'icon'}
-          className="z-10 absolute left-5 top-6 hover:bg-primary active:bg-primary"
-          onClick={handleBackClick}
+          className="z-10 absolute left-5 top-6 active:bg-primary"
+          asChild
         >
-          <ChevronLeft size={18} />
+          <Link href="/">
+            <ChevronLeft size={18} />
+          </Link>
         </Button>
-        <Button
-          variant={'outline'}
-          size={'icon'}
-          className="z-10 absolute right-5 top-6 hover:bg-primary active:bg-primary"
-        >
-          <MenuIcon size={18} />
-        </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant={'outline'}
+              size={'icon'}
+              className="z-10 absolute right-5 top-6 active:bg-primary"
+            >
+              <MenuIcon size={18} />
+            </Button>
+          </SheetTrigger>
+          <SheetContent className="p-0">
+            <SideMenu />
+          </SheetContent>
+        </Sheet>
         <Image
           src={barbershop.imageUrl}
           alt={barbershop.name}

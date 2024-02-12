@@ -4,7 +4,7 @@ import ServiceItem from '@/components/shared/service-item';
 import { Button } from '@/components/ui/button';
 import Service from '@/core/domain/entities/service';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
-import { PhoneIcon, Smartphone } from 'lucide-react';
+import { Smartphone } from 'lucide-react';
 
 type TabsNavigationProps = {
   services: Service[];
@@ -31,14 +31,16 @@ export default function TabsNavigation({
         <TabsTrigger
           className="data-[state=active]:bg-primary data-[state=active]:border-primary p-2 rounded-lg border border-secondary font-bold text-sm"
           value="services"
+          asChild
         >
-          Serviços
+          <Button variant={'outline'}>Serviços</Button>
         </TabsTrigger>
         <TabsTrigger
           className="data-[state=active]:bg-primary data-[state=active]:border-primary p-2 rounded-lg border border-secondary font-bold text-sm"
           value="information"
+          asChild
         >
-          Informações
+          <Button variant={'outline'}>Informações</Button>
         </TabsTrigger>
       </TabsList>
       <TabsContent value="services">
@@ -50,8 +52,10 @@ export default function TabsNavigation({
       </TabsContent>
       <TabsContent value="information" className="">
         <div className="px-5 pb-6 border-b border-secondary">
-          <h2 className='text-sm font-bold text-gray-400 uppercase'>Sobre nós</h2>
-          <p className='text-sm mt-3'>
+          <h2 className="text-sm font-bold text-gray-400 uppercase">
+            Sobre nós
+          </h2>
+          <p className="text-sm mt-3">
             Bem-vindo à Vintage Barber, onde tradição encontra estilo. Nossa
             equipe de mestres barbeiros transforma cortes de cabelo e barbas em
             obras de arte. Em um ambiente acolhedor, promovemos confiança,
@@ -63,16 +67,28 @@ export default function TabsNavigation({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Smartphone size={20} />
-              <span className='text-sm'>(11) 9999-9999</span>
+              <span className="text-sm">(11) 9999-9999</span>
             </div>
-            <Button size={"sm"} variant={'secondary'} className='hover:bg-primary'>Copiar</Button>
+            <Button
+              size={'sm'}
+              variant={'secondary'}
+              className="hover:bg-primary"
+            >
+              Copiar
+            </Button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Smartphone size={20} />
-              <span className='text-sm'>(11) 9999-9999</span>
+              <span className="text-sm">(11) 9999-9999</span>
             </div>
-            <Button size={"sm"} variant={'secondary'} className='hover:bg-primary'>Copiar</Button>
+            <Button
+              size={'sm'}
+              variant={'secondary'}
+              className="hover:bg-primary"
+            >
+              Copiar
+            </Button>
           </div>
         </div>
 
