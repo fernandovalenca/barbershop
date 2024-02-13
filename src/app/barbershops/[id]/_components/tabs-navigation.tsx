@@ -2,6 +2,7 @@
 
 import ServiceItem from '@/components/shared/service-item';
 import { Button } from '@/components/ui/button';
+import Barbershop from '@/core/domain/entities/barbershop';
 import Service from '@/core/domain/entities/service';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { stat } from 'fs';
@@ -10,6 +11,7 @@ import { useSession } from 'next-auth/react';
 
 type TabsNavigationProps = {
   services: Service[];
+  barbershop: Barbershop;
   defaultValue: string;
 };
 
@@ -25,6 +27,7 @@ const weekdays = [
 
 export default function TabsNavigation({
   services,
+  barbershop,
   defaultValue,
 }: TabsNavigationProps) {
   const { status } = useSession();
@@ -53,6 +56,7 @@ export default function TabsNavigation({
             <ServiceItem
               key={service.id}
               service={service}
+              barbershop={barbershop}
               isAuthenticated={status === 'authenticated'}
             />
           ))}

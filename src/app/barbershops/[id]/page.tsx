@@ -36,6 +36,7 @@ export default async function BarbershopDetailsPage({
 
       <TabsNavigation
         defaultValue="services"
+        barbershop={barbershop}
         services={serializedBarbershop.services}
       />
     </main>
