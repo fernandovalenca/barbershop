@@ -21,6 +21,8 @@ import { format, setHours, setMinutes } from 'date-fns';
 import { Barbershop } from '@prisma/client';
 import saveBooking from '@/services/save-booking';
 import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 type ServiceItemProps = {
   service: Service;
@@ -33,10 +35,12 @@ export default function ServiceItem({
   barbershop,
   isAuthenticated,
 }: ServiceItemProps) {
+  const router = useRouter();
   const { data } = useSession();
   const [date, setDate] = useState<Date | undefined>();
   const [hour, setHour] = useState<string | undefined>();
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
+  const [sheetIsOpen, setSheetIsOpen] = useState(false);
 
   const handleBookingClick = () => {
     if (!isAuthenticated) {
@@ -71,6 +75,20 @@ export default function ServiceItem({
         userId: (data.user as any).id,
         date: newDate,
       });
+
+      setSheetIsOpen(false);
+      setDate(undefined);
+      setHour(undefined);
+
+      toast('Reserva realizada com sucesso!', {
+        description: format(newDate, "'Para' dd 'de' MMMM 'às' HH:mm", {
+          locale: ptBR,
+        }),
+        action: {
+          label: 'Visualizar',
+          onClick: () => router.push('/bookings'),
+        },
+      });
     } catch (error) {
       console.log({ error });
     } finally {
@@ -99,7 +117,7 @@ export default function ServiceItem({
                 style: 'currency',
               }).format(service.price)}
             </span>
-            <Sheet>
+            <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
               <SheetTrigger asChild>
                 <Button
                   onClick={handleBookingClick}
@@ -209,7 +227,7 @@ export default function ServiceItem({
                 <SheetFooter className="flex flex-1 px-5 pb-6">
                   <Button
                     onClick={handleBookingSubmit}
-                    disabled={!hour || !date}
+                    disabled={!hour || !date || submitIsLoading}
                   >
                     {submitIsLoading && (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
