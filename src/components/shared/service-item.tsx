@@ -4,7 +4,7 @@ import Service from '@/core/domain/entities/service';
 import { Card, CardContent, CardHeader } from '../ui/card';
 import Image from 'next/image';
 import { Button } from '../ui/button';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import {
   Sheet,
   SheetContent,
@@ -17,8 +17,10 @@ import { useMemo, useState } from 'react';
 import { Calendar } from '../ui/calendar';
 import { ptBR } from 'date-fns/locale/pt-BR';
 import { generateDayTimeList } from '@/helpers/generateDayTimeList';
-import { format } from 'date-fns';
+import { format, setHours, setMinutes } from 'date-fns';
 import { Barbershop } from '@prisma/client';
+import saveBooking from '@/services/save-booking';
+import { Loader2 } from 'lucide-react';
 
 type ServiceItemProps = {
   service: Service;
@@ -31,8 +33,10 @@ export default function ServiceItem({
   barbershop,
   isAuthenticated,
 }: ServiceItemProps) {
+  const { data } = useSession();
   const [date, setDate] = useState<Date | undefined>();
   const [hour, setHour] = useState<string | undefined>();
+  const [submitIsLoading, setSubmitIsLoading] = useState(false);
 
   const handleBookingClick = () => {
     if (!isAuthenticated) {
@@ -52,6 +56,27 @@ export default function ServiceItem({
   const dateList = useMemo(() => {
     return date ? generateDayTimeList(date) : [];
   }, [date]);
+
+  const handleBookingSubmit = async () => {
+    setSubmitIsLoading(true);
+    if (!date || !hour || !data?.user) return;
+    try {
+      const dateHour = Number(hour.split(':')[0]);
+      const dateMinutes = Number(hour.split(':')[1]);
+      const newDate = setMinutes(setHours(date, dateHour), dateMinutes);
+
+      await saveBooking({
+        barbershopId: barbershop.id,
+        serviceId: service.id,
+        userId: (data.user as any).id,
+        date: newDate,
+      });
+    } catch (error) {
+      console.log({ error });
+    } finally {
+      setSubmitIsLoading(false);
+    }
+  };
 
   return (
     <Card className="w-full min-h-[134px] max-h-[134px] hover:border hover:border-primary">
@@ -183,8 +208,12 @@ export default function ServiceItem({
 
                 <SheetFooter className="flex flex-1 px-5 pb-6">
                   <Button
+                    onClick={handleBookingSubmit}
                     disabled={!hour || !date}
                   >
+                    {submitIsLoading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     Confirmar reserva
                   </Button>
                 </SheetFooter>
