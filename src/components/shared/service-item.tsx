@@ -13,7 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../ui/sheet';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Calendar } from '../ui/calendar';
 import { ptBR } from 'date-fns/locale/pt-BR';
 import { generateDayTimeList } from '@/helpers/generateDayTimeList';
@@ -23,6 +23,8 @@ import saveBooking from '@/services/save-booking';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import Booking from '@/core/domain/entities/booking';
+import getDayBookings from '@/services/get-day-bookings';
 
 type ServiceItemProps = {
   service: Service;
@@ -41,12 +43,24 @@ export default function ServiceItem({
   const [hour, setHour] = useState<string | undefined>();
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
+  const [dayBookings, setDayBookings] = useState<Booking[]>([]);
 
   const handleBookingClick = () => {
     if (!isAuthenticated) {
       signIn('google');
     }
   };
+
+  useEffect(() => {
+    if (!date) return;
+
+    const refreshAvailableHours = async () => {
+      const _dayBookings = await getDayBookings(barbershop.id, date);
+      setDayBookings(_dayBookings);
+    };
+
+    refreshAvailableHours();
+  }, [date, barbershop]);
 
   const handleDateClick = (date: Date | undefined) => {
     setDate(date);
@@ -57,17 +71,29 @@ export default function ServiceItem({
     setHour(time);
   };
 
-  const dateList = useMemo(() => {
-    return date ? generateDayTimeList(date) : [];
-  }, [date]);
+  const timeList = useMemo(() => {
+    if (!date) return [];
+    return generateDayTimeList(date).filter((time) => {
+      const [timeHour, timeMinutes] = time.split(':');
+
+      return !dayBookings.find((booking) => {
+        return (
+          booking.date.getHours() === Number(timeHour) &&
+          booking.date.getMinutes() === Number(timeMinutes)
+        );
+      });
+    });
+  }, [date, dayBookings]);
 
   const handleBookingSubmit = async () => {
     setSubmitIsLoading(true);
     if (!date || !hour || !data?.user) return;
     try {
-      const dateHour = Number(hour.split(':')[0]);
-      const dateMinutes = Number(hour.split(':')[1]);
-      const newDate = setMinutes(setHours(date, dateHour), dateMinutes);
+      const [dateHour, dateMinutes] = hour.split(':');
+      const newDate = setMinutes(
+        setHours(date, Number(dateHour)),
+        Number(dateMinutes)
+      );
 
       await saveBooking({
         barbershopId: barbershop.id,
@@ -166,7 +192,7 @@ export default function ServiceItem({
 
                 {date && (
                   <div className="px-5 py-6 flex gap-3 overflow-x-auto border-y border-secondary [&::-webkit-scrollbar]:hidden">
-                    {dateList.map((time) => (
+                    {timeList.map((time) => (
                       <Button
                         key={time}
                         className="w-full rounded-full"
