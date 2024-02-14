@@ -2,11 +2,11 @@ import BookingCard from '@/components/shared/booking-item';
 import Header from '@/components/shared/header';
 import Search from '@/components/shared/search';
 import { db } from '@/lib/prisma';
-import { endOfDay, format, startOfDay } from 'date-fns';
+import { endOfDay, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import BarbershopItem from './_component/barbershop-item';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
+import BarbershopItem from './_component/barbershop-item';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);

@@ -17,7 +17,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Calendar } from '../ui/calendar';
 import { ptBR } from 'date-fns/locale/pt-BR';
 import { generateDayTimeList } from '@/helpers/generateDayTimeList';
-import { format, setHours, setMinutes } from 'date-fns';
+import { format, isFuture, setHours, setMinutes } from 'date-fns';
 import { Barbershop } from '@prisma/client';
 import saveBooking from '@/services/save-booking';
 import { Loader2 } from 'lucide-react';
@@ -133,7 +133,7 @@ export default function ServiceItem({
           sizes="100vw"
           className="w-[110px] h-[110px] object-cover rounded-2xl"
         />
-        <div className='flex flex-1 flex-col'>
+        <div className="flex flex-1 flex-col">
           <h2 className="font-semibold text-sm">{service.name}</h2>
           <p className="text-sm text-gray-400">{service.description}</p>
           <div className="flex items-center justify-between mt-2">
