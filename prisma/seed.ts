@@ -152,9 +152,6 @@ async function seedDatabase() {
 
       barbershops.push(barbershop);
     }
-
-    console.log(barbershops);
-
     // Fechar a conexão com o banco de dados
     await prisma.$disconnect();
   } catch (error) {
