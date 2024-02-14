@@ -2,7 +2,7 @@ import BookingCard from '@/components/shared/booking-item';
 import Header from '@/components/shared/header';
 import Search from '@/components/shared/search';
 import { db } from '@/lib/prisma';
-import { format } from 'date-fns';
+import { endOfDay, format, startOfDay } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import BarbershopItem from './_component/barbershop-item';
 import { getServerSession } from 'next-auth';
@@ -10,10 +10,32 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  const barbershops = await db.barbershop.findMany();
-  const currentDate = format(new Date(), "EEEE',' d 'de' MMMM", {
+  const currentDate = new Date();
+  const formattedCurrentDay = format(currentDate, "EEEE',' d 'de' MMMM", {
     locale: ptBR,
   });
+
+  const [barbershops, confirmedBookings] = await Promise.all([
+    db.barbershop.findMany(),
+    session?.user
+      ? await db.booking.findMany({
+          where: {
+            userId: (session?.user as any).id,
+            date: {
+              gte: currentDate,
+              lt: endOfDay(currentDate),
+            },
+          },
+          include: {
+            service: true,
+            barbershop: true,
+          },
+          orderBy: {
+            date: 'asc',
+          },
+        })
+      : Promise.resolve([]),
+  ]);
 
   return (
     <main>
@@ -28,7 +50,8 @@ export default async function Home() {
           <h1 className="text-xl font-bold">Olá, faça seu login!</h1>
         )}
         <p className="text-sm">
-          {currentDate.charAt(0).toUpperCase() + currentDate.slice(1)}
+          {formattedCurrentDay.charAt(0).toUpperCase() +
+            formattedCurrentDay.slice(1)}
         </p>
       </div>
 
@@ -36,12 +59,27 @@ export default async function Home() {
         <Search />
       </div>
 
-      {/* <div className="px-5 mt-6">
-        <h2 className="text-xs uppercase text-gray-400 font-bold mb-3">
-          Agendamentos
-        </h2>
-        <BookingCard />
-      </div> */}
+      {confirmedBookings.length > 0 && (
+        <div className="px-5 mt-6">
+          <h2 className="text-xs uppercase text-gray-400 font-bold mb-3">
+            Próximos agendamentos ({confirmedBookings.length})
+          </h2>
+          <div className="flex flex-col gap-3">
+            {confirmedBookings.map((booking) => (
+              <BookingCard
+                key={booking.id}
+                booking={{
+                  ...booking,
+                  service: {
+                    ...booking.service,
+                    price: Number(booking.service.price),
+                  },
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="px-5 mt-6">
         <h2 className="text-xs uppercase text-gray-400 font-bold mb-3">
