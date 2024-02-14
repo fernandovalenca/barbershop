@@ -124,7 +124,7 @@ export default function ServiceItem({
 
   return (
     <Card className="w-full min-h-[134px] max-h-[134px] hover:border hover:border-primary">
-      <CardContent className="flex gap-3 p-3">
+      <CardContent className="flex flex-1 gap-3 p-3">
         <Image
           alt={service.name}
           src={service.imageUrl}
@@ -133,7 +133,7 @@ export default function ServiceItem({
           sizes="100vw"
           className="w-[110px] h-[110px] object-cover rounded-2xl"
         />
-        <div>
+        <div className='flex flex-1 flex-col'>
           <h2 className="font-semibold text-sm">{service.name}</h2>
           <p className="text-sm text-gray-400">{service.description}</p>
           <div className="flex items-center justify-between mt-2">
@@ -153,7 +153,7 @@ export default function ServiceItem({
                   Reservar
                 </Button>
               </SheetTrigger>
-              <SheetContent className="flex flex-1 flex-col p-0">
+              <SheetContent className="flex flex-1 flex-col p-0 overflow-y-auto">
                 <SheetHeader className="p-5 text-left border-b border-secondary">
                   <SheetTitle>Fazer reserva</SheetTitle>
                 </SheetHeader>
@@ -162,7 +162,7 @@ export default function ServiceItem({
                   mode="single"
                   selected={date}
                   onSelect={handleDateClick}
-                  className="mt-6"
+                  className=""
                   fromDate={new Date()}
                   locale={ptBR}
                   styles={{
@@ -191,7 +191,7 @@ export default function ServiceItem({
                 />
 
                 {date && (
-                  <div className="px-5 py-6 flex gap-3 overflow-x-auto border-y border-secondary [&::-webkit-scrollbar]:hidden">
+                  <div className="px-5 py-5 flex gap-3 overflow-x-auto border-y border-secondary [&::-webkit-scrollbar]:hidden">
                     {timeList.map((time) => (
                       <Button
                         key={time}
