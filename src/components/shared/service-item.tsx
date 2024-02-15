@@ -1,7 +1,7 @@
 'use client';
 
 import Service from '@/core/domain/entities/service';
-import { Card, CardContent, CardHeader } from '../ui/card';
+import { Card, CardContent } from '../ui/card';
 import Image from 'next/image';
 import { Button } from '../ui/button';
 import { signIn, useSession } from 'next-auth/react';
@@ -17,7 +17,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Calendar } from '../ui/calendar';
 import { ptBR } from 'date-fns/locale/pt-BR';
 import { generateDayTimeList } from '@/helpers/generateDayTimeList';
-import { format, isFuture, setHours, setMinutes } from 'date-fns';
+import { format, setHours, setMinutes } from 'date-fns';
 import { Barbershop } from '@prisma/client';
 import saveBooking from '@/services/save-booking';
 import { Loader2 } from 'lucide-react';

@@ -2,6 +2,7 @@
 
 import Booking from '@/core/domain/entities/booking';
 import { db } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 type Input = {
   barbershopId: string;
@@ -21,4 +22,5 @@ export default async function saveBooking(input: Input) {
       barbershopId: booking.barbershopId,
     },
   });
+  revalidatePath('');
 }

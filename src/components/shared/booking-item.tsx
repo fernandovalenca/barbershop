@@ -21,6 +21,7 @@ import { Loader2, Smartphone } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useState } from 'react';
 import cancelBooking from '@/services/cancel-booking';
+import { toast } from 'sonner';
 
 type BookingItemProps = {
   booking: Booking & { service: Service; barbershop: Barbershop };
@@ -37,6 +38,9 @@ export default function BookingCard({ booking }: BookingItemProps) {
     try {
       await cancelBooking(booking.id);
       setSheetIsOpen(false);
+      toast.success('Reserva cancelada com sucesso', {
+        duration: 3000,
+      });
     } catch (error) {
       console.log({ error });
     } finally {
