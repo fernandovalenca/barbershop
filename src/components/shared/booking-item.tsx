@@ -98,8 +98,8 @@ export default function BookingCard({ booking }: BookingItemProps) {
 
           <div className="absolute w-full bottom-2 left-0 px-9">
             <Card className="">
-              <CardContent className="px-5 py-3 flex gap-3">
-                <Avatar className="h-12 w-12">
+              <CardContent className="p-3 flex items-center gap-3">
+                <Avatar className="h-10 w-10">
                   <AvatarImage
                     src={booking.barbershop.imageUrl}
                     alt={booking.barbershop.name}
@@ -108,8 +108,8 @@ export default function BookingCard({ booking }: BookingItemProps) {
                     {booking.barbershop.name.charAt(0) ?? ''}
                   </AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col">
-                  <h2 className="text-base font-semibold text-nowrap text-ellipsis overflow-hidde">
+                <div className="flex flex-col overflow-hidden">
+                  <h2 className="text-base font-semibold text-nowrap text-ellipsis overflow-hidden">
                     {booking.barbershop.name}
                   </h2>
                   <span className="text-xs text-nowrap text-ellipsis overflow-hidden">
@@ -184,26 +184,18 @@ export default function BookingCard({ booking }: BookingItemProps) {
           </div>
         </div>
 
-        <SheetFooter className="flex flex-1 p-5 pb-6">
-          <div className="self-end w-full flex gap-3">
-            <Button
-              onClick={() => setSheetIsOpen(false)}
-              variant="secondary"
-              className="w-full"
-            >
-              Voltar
-            </Button>
-            <Button
-              onClick={handleBookingSubmit}
-              disabled={isBookingFinished || submitIsLoading}
-              className="w-full bg-red-600 border-red-600 hover:bg-red-500 hover:border-red-500"
-            >
-              {submitIsLoading && (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              )}
-              Cancelar reserva
-            </Button>
-          </div>
+        <SheetFooter className="p-5 pb-6 flex flex-1">
+          <Button
+            onClick={handleBookingSubmit}
+            disabled={isBookingFinished || submitIsLoading}
+            className=""
+            variant="destructive"
+          >
+            {submitIsLoading && (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            )}
+            Cancelar reserva
+          </Button>
         </SheetFooter>
       </SheetContent>
     </Sheet>
