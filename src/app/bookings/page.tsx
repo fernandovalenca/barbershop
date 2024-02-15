@@ -40,7 +40,7 @@ export default async function BookingsPage() {
         barbershop: true,
       },
       orderBy: {
-        date: 'desc',
+        date: 'asc',
       }
     }),
   ]);
