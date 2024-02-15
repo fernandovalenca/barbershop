@@ -10,5 +10,6 @@ export default async function cancelBooking(id: string) {
     },
   });
 
-  revalidatePath('');
+  revalidatePath("/")
+  revalidatePath('/bookings');
 }

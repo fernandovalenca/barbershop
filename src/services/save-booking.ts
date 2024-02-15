@@ -22,5 +22,7 @@ export default async function saveBooking(input: Input) {
       barbershopId: booking.barbershopId,
     },
   });
-  revalidatePath('');
+
+  revalidatePath('/');
+  revalidatePath('/bookings');
 }
