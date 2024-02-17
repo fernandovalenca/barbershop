@@ -166,6 +166,9 @@ export default function ServiceItem({
                   fromDate={new Date()}
                   locale={ptBR}
                   styles={{
+                    month: {
+                      width: '100%',
+                    },
                     head_cell: {
                       width: '100%',
                       textTransform: 'capitalize',
