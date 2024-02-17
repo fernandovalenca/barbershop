@@ -29,6 +29,7 @@ export default function BarbershopItem({ barbershop }: BarbershopItemProps) {
             <span className="text-xs">5,0</span>
           </Badge>
           <Image
+            priority
             alt={barbershop.name}
             src={barbershop.imageUrl}
             height={0}

@@ -22,6 +22,17 @@ import { Button } from '../ui/button';
 import { useState } from 'react';
 import cancelBooking from '@/services/cancel-booking';
 import { toast } from 'sonner';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '../ui/alert-dialog';
 
 type BookingItemProps = {
   booking: Booking & { service: Service; barbershop: Barbershop };
@@ -32,7 +43,7 @@ export default function BookingCard({ booking }: BookingItemProps) {
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
   const isBookingFinished = isPast(booking.date);
 
-  const handleBookingSubmit = async () => {
+  const submitCancelBooking = async () => {
     setSubmitIsLoading(true);
     if (isBookingFinished) return;
     try {
@@ -189,17 +200,40 @@ export default function BookingCard({ booking }: BookingItemProps) {
         </div>
 
         <SheetFooter className="p-5 pb-6 flex flex-1">
-          <Button
-            onClick={handleBookingSubmit}
-            disabled={isBookingFinished || submitIsLoading}
-            className=""
-            variant="destructive"
-          >
-            {submitIsLoading && (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            Cancelar reserva
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                disabled={isBookingFinished || submitIsLoading}
+                className=""
+                variant="destructive"
+              >
+                Cancelar reserva
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="w-[90%]">
+              <AlertDialogHeader>
+                <AlertDialogTitle>Cancelar Reserva</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Tem certeza que deseja cancelar esse agendamento?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="flex flex-row gap-3">
+                <AlertDialogCancel className="m-0 w-full">
+                  Cancelar
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  disabled={submitIsLoading}
+                  onClick={submitCancelBooking}
+                  className="w-full bg-destructive text-destructive-foreground hover:bg-destructive/90 border-destructive hover:border-destructive/90"
+                >
+                  {submitIsLoading && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  Continuar
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </SheetFooter>
       </SheetContent>
     </Sheet>
