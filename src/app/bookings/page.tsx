@@ -1,9 +1,9 @@
-import Header from '@/components/shared/header';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
-import { redirect } from 'next/navigation';
-import { db } from '@/lib/prisma';
 import BookingCard from '@/components/shared/booking-item';
+import Header from '@/components/shared/header';
+import { authOptions } from '@/lib/authOptions';
+import { db } from '@/lib/prisma';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
 export default async function BookingsPage() {
   const session = await getServerSession(authOptions);
