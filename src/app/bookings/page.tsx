@@ -26,7 +26,7 @@ export default async function BookingsPage() {
       },
       orderBy: {
         date: 'asc',
-      }
+      },
     }),
     db.booking.findMany({
       where: {
@@ -41,7 +41,7 @@ export default async function BookingsPage() {
       },
       orderBy: {
         date: 'asc',
-      }
+      },
     }),
   ]);
 
@@ -49,41 +49,45 @@ export default async function BookingsPage() {
     <main>
       <Header />
       <h1 className="px-5 py-6 text-xl font-semibold">Agendamentos</h1>
-      <div className="px-5">
-        <h2 className="text-gray-400 text-sm uppercase">Confirmados</h2>
-        <div className="flex flex-col gap-3 mt-3">
-          {confirmedBookings.map((booking) => (
-            <BookingCard
-              key={booking.id}
-              booking={{
-                ...booking,
-                service: {
-                  ...booking.service,
-                  price: Number(booking.service.price),
-                },
-              }}
-            />
-          ))}
+      {confirmedBookings.length > 0 && (
+        <div className="px-5 mb-6">
+          <h2 className="text-gray-400 text-sm uppercase">Confirmados</h2>
+          <div className="flex flex-col gap-3 mt-3">
+            {confirmedBookings.map((booking) => (
+              <BookingCard
+                key={booking.id}
+                booking={{
+                  ...booking,
+                  service: {
+                    ...booking.service,
+                    price: Number(booking.service.price),
+                  },
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="px-5">
-        <h2 className="text-gray-400 text-sm uppercase mt-6">Finalizados</h2>
-        <div className="flex flex-col gap-3 mt-3">
-          {finishedBookings.map((booking) => (
-            <BookingCard
-              key={booking.id}
-              booking={{
-                ...booking,
-                service: {
-                  ...booking.service,
-                  price: Number(booking.service.price),
-                },
-              }}
-            />
-          ))}
+      {finishedBookings.length > 0 && (
+        <div className="px-5">
+          <h2 className="text-gray-400 text-sm uppercase">Finalizados</h2>
+          <div className="flex flex-col gap-3 mt-3">
+            {finishedBookings.map((booking) => (
+              <BookingCard
+                key={booking.id}
+                booking={{
+                  ...booking,
+                  service: {
+                    ...booking.service,
+                    price: Number(booking.service.price),
+                  },
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </main>
   );
 }

@@ -23,7 +23,6 @@ export default async function Home() {
             userId: (session?.user as any).id,
             date: {
               gte: currentDate,
-              lt: endOfDay(currentDate),
             },
           },
           include: {
