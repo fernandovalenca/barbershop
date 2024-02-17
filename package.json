@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prisma:seed": "npx prisma db seed",
-    "prisma:studio": "npx prisma studio"
+    "prisma:studio": "npx prisma studio",
+    "prepare": "prisma generate"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
