@@ -18,7 +18,7 @@ export default function BarbershopItem({ barbershop }: BarbershopItemProps) {
     router.push(`/barbershops/${barbershop.id}`);
 
   return (
-    <Card className="max-w-44 min-w-44 rounded-2xl hover:border hover:border-primary">
+    <Card className="max-w-48 min-w-40 w-full rounded-2xl hover:border hover:border-primary">
       <CardContent className="p-0">
         <div className="relative p-1">
           <Badge
