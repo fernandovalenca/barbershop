@@ -27,7 +27,11 @@ export default async function BarbershopPage({
     <main className="flex flex-col gap-6">
       <Header />
       <div className="px-5">
-        <Search />
+        <Search
+          defaultValues={{
+            search: searchParams.search,
+          }}
+        />
       </div>
       <div className="px-5">
         <h2 className="text-xs font-semibold text-gray-400 uppercase">
