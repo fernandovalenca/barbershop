@@ -2,6 +2,7 @@ import Header from '@/components/shared/header';
 import Search from '@/components/shared/search';
 import { db } from '@/lib/prisma';
 import BarbershopItem from '../(home)/_component/barbershop-item';
+import { redirect } from 'next/navigation';
 
 type BarbershopPageParams = {
   searchParams: {
@@ -12,6 +13,7 @@ type BarbershopPageParams = {
 export default async function BarbershopPage({
   searchParams,
 }: BarbershopPageParams) {
+  if (!searchParams.search) redirect('/');
   const barbershops = await db.barbershop.findMany({
     where: {
       name: {
