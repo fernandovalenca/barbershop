@@ -1,11 +1,11 @@
 'use client';
 
-import Image from 'next/image';
-import Barbershop from '@/core/domain/entities/barbershop';
-import { ChevronLeft, MapPinIcon, MenuIcon, StarIcon } from 'lucide-react';
+import SideMenu from '@/components/shared/side-menu';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import SideMenu from '@/components/shared/side-menu';
+import Barbershop from '@/domain/entities/barbershop';
+import { ChevronLeft, MapPinIcon, MenuIcon, StarIcon } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 type BarbershopInfoProps = {

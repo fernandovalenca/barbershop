@@ -3,7 +3,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import Barbershop from '@/core/domain/entities/barbershop';
+import Barbershop from '@/domain/entities/barbershop';
 import { StarIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';

@@ -2,8 +2,8 @@
 
 import ServiceItem from '@/components/shared/service-item';
 import { Button } from '@/components/ui/button';
-import Barbershop from '@/core/domain/entities/barbershop';
-import Service from '@/core/domain/entities/service';
+import Barbershop from '@/domain/entities/barbershop';
+import Service from '@/domain/entities/service';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { Smartphone } from 'lucide-react';
 import { useSession } from 'next-auth/react';

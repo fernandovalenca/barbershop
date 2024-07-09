@@ -1,30 +1,30 @@
 'use client';
 
-import Service from '@/core/domain/entities/service';
-import { Card, CardContent } from '../ui/card';
-import Image from 'next/image';
-import { Button } from '../ui/button';
-import { signIn, useSession } from 'next-auth/react';
-import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '../ui/sheet';
-import { useEffect, useMemo, useState } from 'react';
-import { Calendar } from '../ui/calendar';
-import { ptBR } from 'date-fns/locale/pt-BR';
+import Booking from '@/domain/entities/booking';
+import Service from '@/domain/entities/service';
 import { generateDayTimeList } from '@/helpers/generateDayTimeList';
-import { format, setHours, setMinutes } from 'date-fns';
-import { Barbershop } from '@prisma/client';
-import saveBooking from '@/services/save-booking';
-import { Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
-import Booking from '@/core/domain/entities/booking';
 import getDayBookings from '@/services/get-day-bookings';
+import saveBooking from '@/services/save-booking';
+import { Barbershop } from '@prisma/client';
+import { format, setHours, setMinutes } from 'date-fns';
+import { ptBR } from 'date-fns/locale/pt-BR';
+import { Loader2 } from 'lucide-react';
+import { signIn, useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
+import { toast } from 'sonner';
+import { Button } from '../ui/button';
+import { Calendar } from '../ui/calendar';
+import { Card, CardContent } from '../ui/card';
+import {
+    Sheet,
+    SheetContent,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from '../ui/sheet';
 
 type ServiceItemProps = {
   service: Service;

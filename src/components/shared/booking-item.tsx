@@ -1,38 +1,38 @@
 'use client';
 
-import { Booking } from '@prisma/client';
-import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
-import { Badge } from '../ui/badge';
-import { Card, CardContent } from '../ui/card';
-import Service from '@/core/domain/entities/service';
-import Barbershop from '@/core/domain/entities/barbershop';
-import { format, isPast, sub } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
-import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '../ui/sheet';
-import Image from 'next/image';
-import { Loader2, Smartphone } from 'lucide-react';
-import { Button } from '../ui/button';
-import { useState } from 'react';
+import Barbershop from '@/domain/entities/barbershop';
+import Service from '@/domain/entities/service';
 import cancelBooking from '@/services/cancel-booking';
+import { Booking } from '@prisma/client';
+import { format, isPast } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { Loader2, Smartphone } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
 } from '../ui/alert-dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Badge } from '../ui/badge';
+import { Button } from '../ui/button';
+import { Card, CardContent } from '../ui/card';
+import {
+    Sheet,
+    SheetContent,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from '../ui/sheet';
 
 type BookingItemProps = {
   booking: Booking & { service: Service; barbershop: Barbershop };

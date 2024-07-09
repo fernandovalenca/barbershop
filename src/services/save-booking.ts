@@ -1,6 +1,6 @@
 'use server';
 
-import Booking from '@/core/domain/entities/booking';
+import Booking from '@/domain/entities/booking';
 import { db } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 
