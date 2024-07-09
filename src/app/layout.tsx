@@ -21,11 +21,9 @@ export default function RootLayout({
     <html lang="pt-br" className="h-screen">
       <body
         suppressHydrationWarning={true}
-        className={`${inter.className} dark  h-full flex flex-col justify-between`}
+        className={`${inter.className} dark h-full flex flex-col justify-between`}
       >
-        <div>
-          <NextAuthProvider>{children}</NextAuthProvider>
-        </div>
+        <NextAuthProvider>{children}</NextAuthProvider>
         <Footer />
         <Toaster />
       </body>
