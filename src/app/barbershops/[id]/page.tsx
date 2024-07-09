@@ -1,6 +1,6 @@
-import { db } from '@/lib/prisma';
-import BarbershopInfo from './_components/barbershop-info';
-import TabsNavigation from './_components/tabs-navigation';
+import { db } from "@/lib/prisma";
+import BarbershopInfo from "./_components/barbershop-info";
+import TabsNavigation from "./_components/tabs-navigation";
 
 type BarbershopDetailsPageProps = {
   params: {
@@ -36,7 +36,7 @@ export default async function BarbershopDetailsPage({
 
       <TabsNavigation
         defaultValue="services"
-        barbershop={barbershop}
+        barbershop={serializedBarbershop}
         services={serializedBarbershop.services}
       />
     </main>
