@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { MenuIcon } from 'lucide-react';
-import Icon from '../icons/logo';
-import { Button } from '../ui/button';
-import { Card, CardContent } from '../ui/card';
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
-import SideMenu from './side-menu';
-import Link from 'next/link';
+import { MenuIcon } from "lucide-react";
+import Icon from "../icons/logo";
+import { Button } from "../ui/button";
+import { Card, CardContent } from "../ui/card";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import SideMenu from "./side-menu";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -19,7 +19,7 @@ export default function Header() {
           <Sheet>
             <SheetTrigger asChild>
               <Button
-                variant={'outline'}
+                variant={"outline"}
                 size="icon"
                 className="active:bg-primary"
               >
